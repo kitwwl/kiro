@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GCGO 品牌营销能力评估报告 - 邹洋</title>
+<title>G-CGO 能力素质模型测评报告 - 邹洋</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 * {
@@ -14,13 +14,13 @@
 
 @page {
   size: A4;
-  margin: 12mm;
+  margin: 10mm;
 }
 
 body {
-  font-family: -apple-system, "Microsoft YaHei", "PingFang SC", sans-serif;
-  background: #f5f5f5;
-  color: #2d2d2d;
+  font-family: "PingFang SC", -apple-system, sans-serif;
+  background: #f0ebe3;
+  color: #3a3a3a;
   line-height: 1.6;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
@@ -30,13 +30,14 @@ body {
   width: 210mm;
   min-height: 297mm;
   margin: 0 auto;
-  background: #ffffff;
+  background: #faf6f0;
   padding: 0;
   overflow: hidden;
+  position: relative;
 }
 
 @media print {
-  body { background: #fff; }
+  body { background: #faf6f0; }
   .page {
     width: 100%;
     min-height: auto;
@@ -47,85 +48,97 @@ body {
 
 @media screen {
   .page {
-    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 24px rgba(80,60,30,0.1);
     margin: 20px auto;
   }
 }
 
 /* Header */
 .header {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-  padding: 28px 36px;
+  background: #3d5c3a;
+  padding: 22px 32px 18px;
   color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 
+.header-left {}
+
 .header-title {
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 700;
-  letter-spacing: 1px;
-  margin-bottom: 4px;
+  letter-spacing: 2px;
 }
 
 .header-subtitle {
-  font-size: 12px;
-  color: rgba(255,255,255,0.6);
+  font-size: 10px;
+  color: rgba(255,255,255,0.55);
   font-weight: 400;
+  margin-top: 3px;
+  letter-spacing: 0.5px;
+}
+
+.header-meta {
+  text-align: right;
+  font-size: 9px;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.5;
 }
 
 /* Section 1: Summary */
 .section-summary {
-  padding: 24px 36px 20px;
-  border-bottom: 1px solid #eee;
+  padding: 22px 28px 18px;
+}
+
+.summary-card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 20px 24px;
+  box-shadow: 0 1px 6px rgba(60,90,50,0.06);
 }
 
 .summary-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eae6df;
 }
 
 .summary-name {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
-  color: #1a1a2e;
+  color: #2c2c2c;
 }
 
 .summary-score {
   display: flex;
   align-items: baseline;
-  gap: 4px;
+  gap: 3px;
 }
 
 .summary-score-value {
-  font-size: 36px;
+  font-size: 32px;
   font-weight: 800;
-  color: #e8773a;
+  color: #3d5c3a;
 }
 
 .summary-score-max {
-  font-size: 14px;
+  font-size: 13px;
   color: #999;
 }
 
-.summary-label {
-  font-size: 11px;
-  color: #666;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 12px;
-  font-weight: 600;
-}
-
 .evaluation-text {
-  font-size: 12.5px;
-  color: #444;
-  line-height: 1.8;
+  font-size: 12px;
+  color: #555;
+  line-height: 1.9;
   text-align: justify;
 }
 
 .evaluation-text p {
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   text-indent: 2em;
 }
 
@@ -133,48 +146,76 @@ body {
   margin-bottom: 0;
 }
 
-/* Section 2: Radar */
-.section-radar {
-  padding: 20px 36px;
-  border-bottom: 1px solid #eee;
+/* Charts Row */
+.charts-row {
+  padding: 6px 28px 0;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.chart-card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 1px 6px rgba(60,90,50,0.06);
+}
+
+.chart-card-radar {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+.chart-card-bar {
+  flex: 1.2;
+}
+
 .section-title {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
-  color: #1a1a2e;
-  margin-bottom: 12px;
+  color: #3d5c3a;
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
-  gap: 8px;
-  align-self: flex-start;
+  gap: 6px;
 }
 
 .section-title::before {
   content: '';
   display: inline-block;
   width: 3px;
-  height: 14px;
-  background: #e8773a;
+  height: 12px;
+  background: #7a9e54;
   border-radius: 2px;
 }
 
 .radar-container {
-  width: 280px;
-  height: 280px;
-}
-
-/* Section 3: Bar chart */
-.section-bars {
-  padding: 20px 36px 24px;
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 1;
 }
 
 .bars-container {
   width: 100%;
-  height: 340px;
+  height: 310px;
+}
+
+/* Footer */
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 8.5px;
+  color: #aaa;
+  border-top: 1px solid #eae6df;
+  background: #faf6f0;
 }
 </style>
 </head>
@@ -182,42 +223,55 @@ body {
 <div class="page">
   <!-- Header -->
   <div class="header">
-    <div class="header-title">GCGO 品牌营销能力评估报告</div>
-    <div class="header-subtitle">Brand Marketing Competency Assessment Report</div>
+    <div class="header-left">
+      <div class="header-title">G-CGO 能力素质模型测评报告</div>
+      <div class="header-subtitle">Brand Marketing Competency Model Assessment</div>
+    </div>
+    <div class="header-meta">
+      报告日期：2025年05月15日<br>
+      评测机构：简而言之 Briefly Lab
+    </div>
   </div>
 
   <!-- Section 1: Summary -->
   <div class="section-summary">
-    <div class="summary-header">
-      <div class="summary-name">邹洋</div>
-      <div class="summary-score">
-        <span class="summary-score-value">3.7</span>
-        <span class="summary-score-max">/ 5.0</span>
+    <div class="summary-card">
+      <div class="summary-header">
+        <div class="summary-name">邹洋</div>
+        <div class="summary-score">
+          <span class="summary-score-value">3.7</span>
+          <span class="summary-score-max">/ 5.0</span>
+        </div>
+      </div>
+      <div class="evaluation-text">
+        <p>邹洋，你整体处于成熟胜任的能力水平。在大部分业务模块中，你已有完整方法论，能独立完成业务闭环。你的能力画像具有明显的经营驱动特征。你擅长关注长期价值，懂得把用户当作核心资产来持续经营。但在前置方向判断与团队协同效率上，你还有探索空间。</p>
+        <p>你的突出表现集中在私域运营、闭环管理力和客户管理三个细项。面对具体项目，你不仅关注单点执行动作。你更倾向系统重构项目的反馈闭环，并从中提炼出经验。面对用户流量，你习惯把用户视作长期的资产去经营。你会通过联动产品与服务，搭建出价值清晰的分层体系。这种关注长期价值和系统链路的视角，是存量博弈环境下非常关键的业务保障。</p>
+        <p>相对偏弱的是战略理解力、内部协作和 AI 协作三个细项。接到新任务时，你习惯直接等待目标下达。你较少主动追问动作背后的核心战略动机。在推动内部工作时，你能达成基础的执行共识。但你尚未建立起明确的决策机制来减少长期内耗。同时，你较少将 AI 嵌入到日常高频工作流中放大效能。这些情况暂不影响当前产出，但会限制你带动更大规模团队的潜力。</p>
+        <p>建议下一阶段从业务源头改变思考习惯。在每次新项目启动前，主动向业务方确认该项目如何承接公司战略大盘。另外，建议你主导建立一次跨部门项目的协作规则。在这个过程中，你可以尝试将某项常规的汇总流程交给 AI 工具来处理。这样能把你的经营意识真正转化为组织层面的效率。</p>
       </div>
     </div>
-    <div class="summary-label">综合评价</div>
-    <div class="evaluation-text">
-      <p>邹洋，你整体处于成熟胜任的能力水平。在大部分业务模块中，你已有完整方法论，能独立完成业务闭环。你的能力画像具有明显的经营驱动特征。你擅长关注长期价值，懂得把用户当作核心资产来持续经营。但在前置方向判断与团队协同效率上，你还有探索空间。</p>
-      <p>你的突出表现集中在私域运营、闭环管理力和客户管理三个细项。面对具体项目，你不仅关注单点执行动作。你更倾向系统重构项目的反馈闭环，并从中提炼出经验。面对用户流量，你习惯把用户视作长期的资产去经营。你会通过联动产品与服务，搭建出价值清晰的分层体系。这种关注长期价值和系统链路的视角，是存量博弈环境下非常关键的业务保障。</p>
-      <p>相对偏弱的是战略理解力、内部协作和 AI 协作三个细项。接到新任务时，你习惯直接等待目标下达。你较少主动追问动作背后的核心战略动机。在推动内部工作时，你能达成基础的执行共识。但你尚未建立起明确的决策机制来减少长期内耗。同时，你较少将 AI 嵌入到日常高频工作流中放大效能。这些情况暂不影响当前产出，但会限制你带动更大规模团队的潜力。</p>
-      <p>建议下一阶段从业务源头改变思考习惯。在每次新项目启动前，主动向业务方确认该项目如何承接公司战略大盘。另外，建议你主导建立一次跨部门项目的协作规则。在这个过程中，你可以尝试将某项常规的汇总流程交给 AI 工具来处理。这样能把你的经营意识真正转化为组织层面的效率。</p>
+  </div>
+
+  <!-- Charts Row: Radar + Bar side by side -->
+  <div class="charts-row">
+    <div class="chart-card chart-card-radar">
+      <div class="section-title">五维能力雷达</div>
+      <div class="radar-container">
+        <canvas id="radarChart"></canvas>
+      </div>
+    </div>
+    <div class="chart-card chart-card-bar">
+      <div class="section-title">16项能力明细</div>
+      <div class="bars-container">
+        <canvas id="barChart"></canvas>
+      </div>
     </div>
   </div>
 
-  <!-- Section 2: Radar Chart -->
-  <div class="section-radar">
-    <div class="section-title">五维能力雷达图</div>
-    <div class="radar-container">
-      <canvas id="radarChart"></canvas>
-    </div>
-  </div>
-
-  <!-- Section 3: Bar Chart -->
-  <div class="section-bars">
-    <div class="section-title">16项能力明细</div>
-    <div class="bars-container">
-      <canvas id="barChart"></canvas>
-    </div>
+  <!-- Footer -->
+  <div class="footer">
+    <span>G-CGO 能力素质模型测评 · 简而言之 Briefly Lab</span>
+    <span>本报告仅供个人发展参考，不作为绩效考核依据</span>
   </div>
 </div>
 
@@ -234,12 +288,11 @@ const subitemLabels = [
 ];
 const subitemScores = [2.5, 3.0, 3.0, 4.5, 4.0, 3.0, 5.0, 4.0, 4.5, 4.0, 4.0, 3.0, 3.5, 4.0, 3.0, 4.5];
 
-// Color function for bars
+// Color function: >4 deep green, 3<x<=4 muted olive, <=3 muted terracotta
 function getBarColor(score) {
-  if (score <= 2.0) return '#ef5350';
-  if (score <= 3.0) return '#ffa726';
-  if (score <= 4.0) return '#42a5f5';
-  return '#66bb6a';
+  if (score > 4) return '#4a7c4b';
+  if (score > 3) return '#8b9a6d';
+  return '#c07a5a';
 }
 
 const barColors = subitemScores.map(getBarColor);
@@ -252,12 +305,12 @@ new Chart(radarCtx, {
     labels: dimensionLabels,
     datasets: [{
       data: dimensionScores,
-      backgroundColor: 'rgba(232, 119, 58, 0.15)',
-      borderColor: '#e8773a',
+      backgroundColor: 'rgba(74, 124, 75, 0.12)',
+      borderColor: '#4a7c4b',
       borderWidth: 2,
-      pointBackgroundColor: '#e8773a',
+      pointBackgroundColor: '#4a7c4b',
       pointBorderColor: '#fff',
-      pointBorderWidth: 1,
+      pointBorderWidth: 1.5,
       pointRadius: 4
     }]
   },
@@ -273,19 +326,19 @@ new Chart(radarCtx, {
         max: 5,
         ticks: {
           stepSize: 1,
-          font: { size: 10 },
-          color: '#999',
+          font: { family: 'PingFang SC', size: 9 },
+          color: '#bbb',
           backdropColor: 'transparent'
         },
         pointLabels: {
-          font: { size: 12, weight: '600' },
-          color: '#333'
+          font: { family: 'PingFang SC', size: 11, weight: '600' },
+          color: '#444'
         },
         grid: {
-          color: 'rgba(0,0,0,0.06)'
+          color: 'rgba(0,0,0,0.05)'
         },
         angleLines: {
-          color: 'rgba(0,0,0,0.06)'
+          color: 'rgba(0,0,0,0.05)'
         }
       }
     }
@@ -302,7 +355,7 @@ new Chart(barCtx, {
       data: subitemScores,
       backgroundColor: barColors,
       borderRadius: 3,
-      barThickness: 14
+      barThickness: 13
     }]
   },
   options: {
@@ -319,8 +372,8 @@ new Chart(barCtx, {
         max: 5,
         ticks: {
           stepSize: 1,
-          font: { size: 10 },
-          color: '#999'
+          font: { family: 'PingFang SC', size: 9 },
+          color: '#bbb'
         },
         grid: {
           color: 'rgba(0,0,0,0.04)'
@@ -328,8 +381,8 @@ new Chart(barCtx, {
       },
       y: {
         ticks: {
-          font: { size: 11 },
-          color: '#444'
+          font: { family: 'PingFang SC', size: 10 },
+          color: '#555'
         },
         grid: {
           display: false
@@ -340,14 +393,14 @@ new Chart(barCtx, {
       onComplete: function() {
         const chart = this;
         const ctx = chart.ctx;
-        ctx.font = '11px -apple-system, "Microsoft YaHei", sans-serif';
-        ctx.fillStyle = '#666';
+        ctx.font = '10px "PingFang SC", sans-serif';
+        ctx.fillStyle = '#888';
         ctx.textAlign = 'left';
         ctx.textBaseline = 'middle';
         chart.data.datasets[0].data.forEach((value, index) => {
           const meta = chart.getDatasetMeta(0);
           const bar = meta.data[index];
-          ctx.fillText(value.toFixed(1), bar.x + 6, bar.y);
+          ctx.fillText(value.toFixed(1), bar.x + 5, bar.y);
         });
       }
     }
