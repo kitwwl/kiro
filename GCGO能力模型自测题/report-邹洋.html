@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>G-CGO 能力素质模型测评报告 - 邹洋</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 <style>
 * {
   margin: 0;
@@ -14,13 +15,13 @@
 
 @page {
   size: A4;
-  margin: 10mm;
+  margin: 8mm;
 }
 
 body {
   font-family: "PingFang SC", -apple-system, sans-serif;
-  background: #f0ebe3;
-  color: #3a3a3a;
+  background: #e8eaed;
+  color: #2c2c2c;
   line-height: 1.6;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
@@ -30,176 +31,156 @@ body {
   width: 210mm;
   min-height: 297mm;
   margin: 0 auto;
-  background: #faf6f0;
+  background: #f4f5f7;
   padding: 0;
   overflow: hidden;
   position: relative;
 }
 
 @media print {
-  body { background: #faf6f0; }
-  .page {
-    width: 100%;
-    min-height: auto;
-    margin: 0;
-    box-shadow: none;
-  }
+  body { background: #f4f5f7; }
+  .page { width: 100%; min-height: auto; margin: 0; box-shadow: none; }
 }
 
 @media screen {
-  .page {
-    box-shadow: 0 4px 24px rgba(80,60,30,0.1);
-    margin: 20px auto;
-  }
+  .page { box-shadow: 0 4px 32px rgba(0,0,0,0.08); margin: 20px auto; }
 }
 
 /* Header */
 .header {
-  background: #3d5c3a;
-  padding: 22px 32px 18px;
+  background: #2b3a42;
+  padding: 20px 28px 16px;
   color: #ffffff;
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
 }
-
-.header-left {}
 
 .header-title {
-  font-size: 19px;
+  font-size: 18px;
   font-weight: 700;
   letter-spacing: 2px;
-}
-
-.header-subtitle {
-  font-size: 10px;
-  color: rgba(255,255,255,0.55);
-  font-weight: 400;
-  margin-top: 3px;
-  letter-spacing: 0.5px;
 }
 
 .header-meta {
   text-align: right;
   font-size: 9px;
-  color: rgba(255,255,255,0.6);
-  line-height: 1.5;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.6;
 }
 
-/* Section 1: Summary */
-.section-summary {
-  padding: 22px 28px 18px;
+/* Content area */
+.content {
+  padding: 18px 22px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
-.summary-card {
+/* Cards */
+.card {
   background: #ffffff;
-  border-radius: 10px;
-  padding: 20px 24px;
-  box-shadow: 0 1px 6px rgba(60,90,50,0.06);
+  border-radius: 12px;
+  padding: 20px 22px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
 }
 
-.summary-header {
+.card-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #2b3a42;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-title::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 13px;
+  background: #5b8a72;
+  border-radius: 2px;
+}
+
+/* Summary card */
+.summary-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 14px;
   padding-bottom: 12px;
-  border-bottom: 1px solid #eae6df;
+  border-bottom: 1px solid #eceef0;
 }
 
 .summary-name {
   font-size: 20px;
-  font-weight: 700;
-  color: #2c2c2c;
+  font-weight: 800;
+  color: #1a1a1a;
 }
 
 .summary-score {
   display: flex;
   align-items: baseline;
-  gap: 3px;
+  gap: 2px;
 }
 
 .summary-score-value {
-  font-size: 32px;
+  font-size: 34px;
   font-weight: 800;
-  color: #3d5c3a;
+  color: #2b3a42;
 }
 
 .summary-score-max {
   font-size: 13px;
-  color: #999;
+  color: #aaa;
 }
 
 .evaluation-text {
-  font-size: 12px;
+  font-size: 11.5px;
   color: #555;
-  line-height: 1.9;
+  line-height: 1.85;
   text-align: justify;
 }
 
 .evaluation-text p {
-  margin-bottom: 6px;
+  margin-bottom: 5px;
   text-indent: 2em;
 }
 
-.evaluation-text p:last-child {
-  margin-bottom: 0;
-}
+.evaluation-text p:last-child { margin-bottom: 0; }
 
-/* Charts Row */
+/* Charts row */
 .charts-row {
-  padding: 6px 28px 0;
   display: flex;
-  gap: 16px;
-  align-items: flex-start;
-}
-
-.chart-card {
-  background: #ffffff;
-  border-radius: 10px;
-  padding: 16px;
-  box-shadow: 0 1px 6px rgba(60,90,50,0.06);
+  gap: 14px;
 }
 
 .chart-card-radar {
-  flex: 1;
+  flex: 0 0 48%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .chart-card-bar {
-  flex: 1.2;
-}
-
-.section-title {
-  font-size: 12px;
-  font-weight: 700;
-  color: #3d5c3a;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.section-title::before {
-  content: '';
-  display: inline-block;
-  width: 3px;
-  height: 12px;
-  background: #7a9e54;
-  border-radius: 2px;
+  flex: 1;
 }
 
 .radar-container {
   width: 100%;
-  max-width: 320px;
+  max-width: 300px;
   aspect-ratio: 1;
+  margin-top: 4px;
 }
 
 .bars-container {
   width: 100%;
-  height: 310px;
+  height: 295px;
+  margin-top: 4px;
 }
 
 /* Footer */
@@ -208,14 +189,13 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 10px 28px;
+  padding: 10px 22px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 8.5px;
-  color: #aaa;
-  border-top: 1px solid #eae6df;
-  background: #faf6f0;
+  font-size: 8px;
+  color: #bbb;
+  background: #f4f5f7;
 }
 </style>
 </head>
@@ -223,20 +203,18 @@ body {
 <div class="page">
   <!-- Header -->
   <div class="header">
-    <div class="header-left">
-      <div class="header-title">G-CGO 能力素质模型测评报告</div>
-      <div class="header-subtitle">Brand Marketing Competency Model Assessment</div>
-    </div>
+    <div class="header-title">G-CGO 能力素质模型测评报告</div>
     <div class="header-meta">
       报告日期：2025年05月15日<br>
       评测机构：简而言之 Briefly Lab
     </div>
   </div>
 
-  <!-- Section 1: Summary -->
-  <div class="section-summary">
-    <div class="summary-card">
-      <div class="summary-header">
+  <div class="content">
+    <!-- Card 1: Summary -->
+    <div class="card">
+      <div class="card-title">综合评价</div>
+      <div class="summary-top">
         <div class="summary-name">邹洋</div>
         <div class="summary-score">
           <span class="summary-score-value">3.7</span>
@@ -250,20 +228,20 @@ body {
         <p>建议下一阶段从业务源头改变思考习惯。在每次新项目启动前，主动向业务方确认该项目如何承接公司战略大盘。另外，建议你主导建立一次跨部门项目的协作规则。在这个过程中，你可以尝试将某项常规的汇总流程交给 AI 工具来处理。这样能把你的经营意识真正转化为组织层面的效率。</p>
       </div>
     </div>
-  </div>
 
-  <!-- Charts Row: Radar + Bar side by side -->
-  <div class="charts-row">
-    <div class="chart-card chart-card-radar">
-      <div class="section-title">五维能力雷达</div>
-      <div class="radar-container">
-        <canvas id="radarChart"></canvas>
+    <!-- Card 2 & 3: Charts side by side -->
+    <div class="charts-row">
+      <div class="card chart-card-radar">
+        <div class="card-title">五维能力模型</div>
+        <div class="radar-container">
+          <canvas id="radarChart"></canvas>
+        </div>
       </div>
-    </div>
-    <div class="chart-card chart-card-bar">
-      <div class="section-title">16项能力明细</div>
-      <div class="bars-container">
-        <canvas id="barChart"></canvas>
+      <div class="card chart-card-bar">
+        <div class="card-title">16项能力明细</div>
+        <div class="bars-container">
+          <canvas id="barChart"></canvas>
+        </div>
       </div>
     </div>
   </div>
@@ -276,8 +254,10 @@ body {
 </div>
 
 <script>
+Chart.register(ChartDataLabels);
+
 // Data
-const dimensionLabels = ['战略思维', '营销技能', '资产管理', '组织管理', '数智运营'];
+const dimensionLabels = ['战略思维\n3.3', '营销技能\n4.0', '资产管理\n4.3', '组织管理\n3.6', '数智运营\n3.8'];
 const dimensionScores = [3.3, 4.0, 4.3, 3.6, 3.8];
 
 const subitemLabels = [
@@ -288,16 +268,16 @@ const subitemLabels = [
 ];
 const subitemScores = [2.5, 3.0, 3.0, 4.5, 4.0, 3.0, 5.0, 4.0, 4.5, 4.0, 4.0, 3.0, 3.5, 4.0, 3.0, 4.5];
 
-// Color function: >4 deep green, 3<x<=4 muted olive, <=3 muted terracotta
+// Bar colors: >4 deep teal, 3<x<=4 muted slate, <=3 muted rose
 function getBarColor(score) {
-  if (score > 4) return '#4a7c4b';
-  if (score > 3) return '#8b9a6d';
-  return '#c07a5a';
+  if (score > 4) return '#3d7a6a';
+  if (score > 3) return '#7a8fa0';
+  return '#b56b6b';
 }
 
 const barColors = subitemScores.map(getBarColor);
 
-// Radar Chart
+// Radar Chart with score labels at each vertex
 const radarCtx = document.getElementById('radarChart').getContext('2d');
 new Chart(radarCtx, {
   type: 'radar',
@@ -305,20 +285,22 @@ new Chart(radarCtx, {
     labels: dimensionLabels,
     datasets: [{
       data: dimensionScores,
-      backgroundColor: 'rgba(74, 124, 75, 0.12)',
-      borderColor: '#4a7c4b',
-      borderWidth: 2,
-      pointBackgroundColor: '#4a7c4b',
+      backgroundColor: 'rgba(61, 122, 106, 0.1)',
+      borderColor: '#3d7a6a',
+      borderWidth: 2.5,
+      pointBackgroundColor: '#3d7a6a',
       pointBorderColor: '#fff',
-      pointBorderWidth: 1.5,
-      pointRadius: 4
+      pointBorderWidth: 2,
+      pointRadius: 5,
+      datalabels: { display: false }
     }]
   },
   options: {
     responsive: true,
     maintainAspectRatio: true,
     plugins: {
-      legend: { display: false }
+      legend: { display: false },
+      datalabels: { display: false }
     },
     scales: {
       r: {
@@ -326,13 +308,13 @@ new Chart(radarCtx, {
         max: 5,
         ticks: {
           stepSize: 1,
-          font: { family: 'PingFang SC', size: 9 },
-          color: '#bbb',
+          font: { family: 'PingFang SC', size: 8 },
+          color: '#ccc',
           backdropColor: 'transparent'
         },
         pointLabels: {
           font: { family: 'PingFang SC', size: 11, weight: '600' },
-          color: '#444'
+          color: '#2b3a42'
         },
         grid: {
           color: 'rgba(0,0,0,0.05)'
@@ -354,8 +336,16 @@ new Chart(barCtx, {
     datasets: [{
       data: subitemScores,
       backgroundColor: barColors,
-      borderRadius: 3,
-      barThickness: 13
+      borderRadius: 4,
+      barThickness: 12,
+      datalabels: {
+        anchor: 'end',
+        align: 'end',
+        offset: 2,
+        font: { family: 'PingFang SC', size: 9, weight: '600' },
+        color: '#666',
+        formatter: function(value) { return value.toFixed(1); }
+      }
     }]
   },
   options: {
@@ -369,14 +359,15 @@ new Chart(barCtx, {
     scales: {
       x: {
         min: 0,
-        max: 5,
+        max: 5.5,
         ticks: {
           stepSize: 1,
-          font: { family: 'PingFang SC', size: 9 },
-          color: '#bbb'
+          font: { family: 'PingFang SC', size: 8 },
+          color: '#ccc',
+          callback: function(value) { return value <= 5 ? value : ''; }
         },
         grid: {
-          color: 'rgba(0,0,0,0.04)'
+          color: 'rgba(0,0,0,0.03)'
         }
       },
       y: {
@@ -387,21 +378,6 @@ new Chart(barCtx, {
         grid: {
           display: false
         }
-      }
-    },
-    animation: {
-      onComplete: function() {
-        const chart = this;
-        const ctx = chart.ctx;
-        ctx.font = '10px "PingFang SC", sans-serif';
-        ctx.fillStyle = '#888';
-        ctx.textAlign = 'left';
-        ctx.textBaseline = 'middle';
-        chart.data.datasets[0].data.forEach((value, index) => {
-          const meta = chart.getDatasetMeta(0);
-          const bar = meta.data[index];
-          ctx.fillText(value.toFixed(1), bar.x + 5, bar.y);
-        });
       }
     }
   }
