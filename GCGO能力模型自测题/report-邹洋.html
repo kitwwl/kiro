@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>G-CGO 能力素质模型测评报告 - 邹洋</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@page {
+  size: A4;
+  margin: 8mm;
+}
+
+body {
+  font-family: "PingFang SC", -apple-system, sans-serif;
+  background: #e8eaed;
+  color: #2c2c2c;
+  line-height: 1.6;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.page {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto;
+  background: #f4f5f7;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+@media print {
+  body { background: #f4f5f7; }
+  .page { width: 100%; min-height: auto; margin: 0; box-shadow: none; }
+}
+
+@media screen {
+  .page { box-shadow: 0 4px 32px rgba(0,0,0,0.08); margin: 20px auto; }
+}
+
+/* Header */
+.header {
+  background: #2b3a42;
+  padding: 20px 28px 16px;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-title {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.header-meta {
+  text-align: right;
+  font-size: 9px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.6;
+}
+
+/* Content area */
+.content {
+  padding: 18px 22px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Cards */
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px 22px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.card-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #2b3a42;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-title::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 13px;
+  background: #5b8a72;
+  border-radius: 2px;
+}
+
+/* Summary card */
+.summary-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eceef0;
+}
+
+.summary-name {
+  font-size: 20px;
+  font-weight: 800;
+  color: #1a1a1a;
+}
+
+.summary-score {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+}
+
+.summary-score-value {
+  font-size: 34px;
+  font-weight: 800;
+  color: #2b3a42;
+}
+
+.summary-score-max {
+  font-size: 13px;
+  color: #aaa;
+}
+
+.evaluation-text {
+  font-size: 11.5px;
+  color: #555;
+  line-height: 1.85;
+  text-align: justify;
+}
+
+.evaluation-text p {
+  margin-bottom: 5px;
+  text-indent: 2em;
+}
+
+.evaluation-text p:last-child { margin-bottom: 0; }
+
+/* Charts row */
+.charts-row {
+  display: flex;
+  gap: 14px;
+}
+
+.chart-card-radar {
+  flex: 0 0 48%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chart-card-bar {
+  flex: 1;
+}
+
+.radar-container {
+  width: 100%;
+  max-width: 300px;
+  aspect-ratio: 1;
+  margin-top: 4px;
+}
+
+.bars-container {
+  width: 100%;
+  height: 295px;
+  margin-top: 4px;
+}
+
+/* Footer */
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 8px;
+  color: #bbb;
+  background: #f4f5f7;
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <!-- Header -->
+  <div class="header">
+    <div class="header-title">G-CGO 能力素质模型测评报告</div>
+    <div class="header-meta">
+      报告日期：2025年05月15日<br>
+      评测机构：简而言之 Briefly Lab
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- Card 1: Summary -->
+    <div class="card">
+      <div class="card-title">综合评价</div>
+      <div class="summary-top">
+        <div class="summary-name">邹洋</div>
+        <div class="summary-score">
+          <span class="summary-score-value">3.7</span>
+          <span class="summary-score-max">/ 5.0</span>
+        </div>
+      </div>
+      <div class="evaluation-text">
+        <p>邹洋，你整体处于成熟胜任的能力水平。在大部分业务模块中，你已有完整方法论，能独立完成业务闭环。你的能力画像具有明显的经营驱动特征。你擅长关注长期价值，懂得把用户当作核心资产来持续经营。但在前置方向判断与团队协同效率上，你还有探索空间。</p>
+        <p>你的突出表现集中在私域运营、闭环管理力和客户管理三个细项。面对具体项目，你不仅关注单点执行动作。你更倾向系统重构项目的反馈闭环，并从中提炼出经验。面对用户流量，你习惯把用户视作长期的资产去经营。你会通过联动产品与服务，搭建出价值清晰的分层体系。这种关注长期价值和系统链路的视角，是存量博弈环境下非常关键的业务保障。</p>
+        <p>相对偏弱的是战略理解力、内部协作和 AI 协作三个细项。接到新任务时，你习惯直接等待目标下达。你较少主动追问动作背后的核心战略动机。在推动内部工作时，你能达成基础的执行共识。但你尚未建立起明确的决策机制来减少长期内耗。同时，你较少将 AI 嵌入到日常高频工作流中放大效能。这些情况暂不影响当前产出，但会限制你带动更大规模团队的潜力。</p>
+        <p>建议下一阶段从业务源头改变思考习惯。在每次新项目启动前，主动向业务方确认该项目如何承接公司战略大盘。另外，建议你主导建立一次跨部门项目的协作规则。在这个过程中，你可以尝试将某项常规的汇总流程交给 AI 工具来处理。这样能把你的经营意识真正转化为组织层面的效率。</p>
+      </div>
+    </div>
+
+    <!-- Card 2 & 3: Charts side by side -->
+    <div class="charts-row">
+      <div class="card chart-card-radar">
+        <div class="card-title">五维能力模型</div>
+        <div class="radar-container">
+          <canvas id="radarChart"></canvas>
+        </div>
+      </div>
+      <div class="card chart-card-bar">
+        <div class="card-title">16项能力明细</div>
+        <div class="bars-container">
+          <canvas id="barChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <span>G-CGO 能力素质模型测评 · 简而言之 Briefly Lab</span>
+    <span>本报告仅供个人发展参考，不作为绩效考核依据</span>
+  </div>
+</div>
+
+<script>
+Chart.register(ChartDataLabels);
+
+// Data
+const dimensionLabels = ['战略思维\n3.3', '营销技能\n4.0', '资产管理\n4.3', '组织管理\n3.6', '数智运营\n3.8'];
+const dimensionScores = [3.3, 4.0, 4.3, 3.6, 3.8];
+
+const subitemLabels = [
+  '战略理解力', '市场洞察力', '目标统筹力', '闭环管理力',
+  '流量管理', '内容营销', '私域运营', '品牌公关',
+  '客户管理', '品牌管理', '向上管理', '内部协作',
+  '跨部门协作', '跨文化沟通', 'AI协作', '数据管理'
+];
+const subitemScores = [2.5, 3.0, 3.0, 4.5, 4.0, 3.0, 5.0, 4.0, 4.5, 4.0, 4.0, 3.0, 3.5, 4.0, 3.0, 4.5];
+
+// Bar colors: >4 deep teal, 3<x<=4 muted slate, <=3 muted rose
+function getBarColor(score) {
+  if (score > 4) return '#3d7a6a';
+  if (score > 3) return '#7a8fa0';
+  return '#b56b6b';
+}
+
+const barColors = subitemScores.map(getBarColor);
+
+// Radar Chart with score labels at each vertex
+const radarCtx = document.getElementById('radarChart').getContext('2d');
+new Chart(radarCtx, {
+  type: 'radar',
+  data: {
+    labels: dimensionLabels,
+    datasets: [{
+      data: dimensionScores,
+      backgroundColor: 'rgba(61, 122, 106, 0.1)',
+      borderColor: '#3d7a6a',
+      borderWidth: 2.5,
+      pointBackgroundColor: '#3d7a6a',
+      pointBorderColor: '#fff',
+      pointBorderWidth: 2,
+      pointRadius: 5,
+      datalabels: { display: false }
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: true,
+    plugins: {
+      legend: { display: false },
+      datalabels: { display: false }
+    },
+    scales: {
+      r: {
+        min: 0,
+        max: 5,
+        ticks: {
+          stepSize: 1,
+          font: { family: 'PingFang SC', size: 8 },
+          color: '#ccc',
+          backdropColor: 'transparent'
+        },
+        pointLabels: {
+          font: { family: 'PingFang SC', size: 11, weight: '600' },
+          color: '#2b3a42'
+        },
+        grid: {
+          color: 'rgba(0,0,0,0.05)'
+        },
+        angleLines: {
+          color: 'rgba(0,0,0,0.05)'
+        }
+      }
+    }
+  }
+});
+
+// Bar Chart
+const barCtx = document.getElementById('barChart').getContext('2d');
+new Chart(barCtx, {
+  type: 'bar',
+  data: {
+    labels: subitemLabels,
+    datasets: [{
+      data: subitemScores,
+      backgroundColor: barColors,
+      borderRadius: 4,
+      barThickness: 12,
+      datalabels: {
+        anchor: 'end',
+        align: 'end',
+        offset: 2,
+        font: { family: 'PingFang SC', size: 9, weight: '600' },
+        color: '#666',
+        formatter: function(value) { return value.toFixed(1); }
+      }
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { enabled: false }
+    },
+    scales: {
+      x: {
+        min: 0,
+        max: 5.5,
+        ticks: {
+          stepSize: 1,
+          font: { family: 'PingFang SC', size: 8 },
+          color: '#ccc',
+          callback: function(value) { return value <= 5 ? value : ''; }
+        },
+        grid: {
+          color: 'rgba(0,0,0,0.03)'
+        }
+      },
+      y: {
+        ticks: {
+          font: { family: 'PingFang SC', size: 10 },
+          color: '#555'
+        },
+        grid: {
+          display: false
+        }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>
